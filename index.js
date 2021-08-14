@@ -19,7 +19,10 @@ callback = function (response) {
     str += chunk;
   });
   response.on('end', function () {
-    client.postStatus(`Բարի՜ լոյս ։)\n\n${str}`).then(console.log).catch(console.log);
+    client
+      .postStatus(`Բարի՜ լոյս ։)\n\n${str}`)
+      .then(() => console.log('Done!'))
+      .catch((error) => console.log(error));
   });
 };
 
