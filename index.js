@@ -10,7 +10,7 @@ const options = {
   host: 'wttr.in',
   path: encodeURI('/Yerevan,%20Armenia?lang=hy&format=Դրսում %t է բայց կարծես %f լինի։\n%C %c է։'),
 };
-const questions = ['Որոշել ե՞ս ինչ հանգնել։', 'Ի՞նչ պլաններ ունես։', 'Ո՞րն է օրուայ նպատակդ'];
+const questions = ['Դու այսօր փայլելու ես։'];
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
