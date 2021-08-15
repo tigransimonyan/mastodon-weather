@@ -8,10 +8,13 @@ const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 const client = generator('mastodon', BASE_URL, ACCESS_TOKEN);
 const options = {
   host: 'wttr.in',
-  path: encodeURI(
-    '/Yerevan,%20Armenia?lang=hy&format=Դրսում %t է բայց կարծես %f լինի։\n%C %cէ։\n\nԻ՞նչ նպատակ ունես այսօր։'
-  ),
+  path: encodeURI('/Yerevan,%20Armenia?lang=hy&format=Դրսում %t է բայց կարծես %f լինի։\n%C %c է։'),
 };
+const questions = ['Որոշել ե՞ս ինչ հանգնել։', 'Ի՞նչ պլաններ ունես։', 'Ո՞րն է օրուայ նպատակդ'];
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 callback = function (response) {
   var str = '';
@@ -20,7 +23,7 @@ callback = function (response) {
   });
   response.on('end', function () {
     client
-      .postStatus(`Բարի՜ լոյս ։)\n\n${str}`)
+      .postStatus(`Բարի՜ լոյս ։)\n\n${str}\n\n${questions[getRandomInt(questions.length)]}`)
       .then(() => console.log('Done!'))
       .catch((error) => console.log(error));
   });
