@@ -6,27 +6,33 @@ const BASE_URL = 'https://xn--y9a6bah4ck.xn--y9a3aq';
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const client = generator('mastodon', BASE_URL, ACCESS_TOKEN);
-const options = {
-  host: 'wttr.in',
-  path: encodeURI('/Yerevan,%20Armenia?lang=hy&format=Դրսում %t է բայց կարծես %f լինի։\n%C %c է։'),
-};
-const questions = ['Դու այսօր փայլելու ես։'];
+const locations = ['Երեւան', 'Լոռի', 'Սեւան', 'Դիլիջան'];
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+const getRandomInt = (max) => Math.floor(Math.random() * max);
 
-callback = function (response) {
-  var str = '';
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
-  response.on('end', function () {
-    client
-      .postStatus(`Բարի՜ լոյս ։)\n\n${str}\n\n${questions[getRandomInt(questions.length)]}`)
-      .then(() => console.log('Done!'))
-      .catch((error) => console.log(error));
-  });
+const post = (array) => {
+  const status = `Բարի՜ լոյս 🤗\n\n${array.join('\n\n')}`;
+  client
+    .postStatus(status)
+    .then(() => console.log('Done!'))
+    .catch((error) => console.log(error));
 };
 
-http.request(options, callback).end();
+const wttrs = [];
+locations.forEach((location) => {
+  const path = `/${location}?lang=hy&format=%c+${location}ում %t է (զգալի՝ %f)։`;
+  http
+    .request({ host: 'wttr.in', path: encodeURI(path) }, (response) => {
+      let str = '';
+      response.on('data', (chunk) => {
+        str += chunk;
+      });
+      response.on('end', () => {
+        wttrs.push(str);
+        if (wttrs.length === locations.length) {
+          post(wttrs);
+        }
+      });
+    })
+    .end();
+});
