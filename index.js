@@ -6,7 +6,7 @@ const BASE_URL = 'https://xn--y9a6bah4ck.xn--y9a3aq';
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 
 const client = generator('mastodon', BASE_URL, ACCESS_TOKEN);
-const locations = ['Երեւան', 'Լոռի', 'Սեւան', 'Դիլիջան', 'Ստեփանավան'];
+const locations = ['Երեւան', 'Լոռի', 'Սեւան', 'Դիլիջան', 'Արցախ'];
 
 const getRandomInt = (max) => Math.floor(Math.random() * max);
 
