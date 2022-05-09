@@ -11,7 +11,7 @@ const locations = ['Երեւան', 'Լոռի', 'Սեւան', 'Դիլիջան', '
 const getRandomInt = (max) => Math.floor(Math.random() * max);
 
 const post = (array) => {
-  const status = `Բարի՜ լոյս 🤗\n\n${array.join('\n\n')}\n\nՄէջքդ ուղիղ պահիր։`;
+  const status = `Բարի՜ լոյս 🤗\n\n${array.join('\n\n')}\n\n🔴 Մէջքդ ուղիղ պահիր։`;
   client
     .postStatus(status)
     .then(() => console.log('Done!'))
